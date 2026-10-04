@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#17364a">
+  <meta name="description" content="Technical CV of Abdulrahman Alhaidari in Arabic and English">
+  <title>Abdulrahman Alhaidari | Technical CV</title>
+
+  <style>
+    :root {
+      --navy: #17364a;
+      --navy-2: #224e60;
+      --teal: #177d78;
+      --teal-dark: #11625e;
+      --paper: #ffffff;
+      --background: #e8edef;
+      --text: #1f2d35;
+      --muted: #d8e4e8;
+      --line: #ccd8dd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--background);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+    }
+
+    body { padding-top: 70px; }
+
+    .toolbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      min-height: 70px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: #fff;
+      background: linear-gradient(120deg, var(--navy), var(--navy-2));
+      border-bottom: 4px solid var(--teal);
+      box-shadow: 0 2px 12px rgba(0,0,0,.22);
+    }
+
+    .identity { min-width: 0; }
+    .identity strong { display: block; font-size: 16px; line-height: 1.2; }
+    .identity span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .language-switcher {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .language-button, .action-button {
+      min-height: 35px;
+      border-radius: 6px;
+      padding: 7px 11px;
+      border: 0;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .language-button {
+      min-width: 74px;
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .language-button.active {
+      color: var(--navy);
+      background: #fff;
+      box-shadow: 0 1px 5px rgba(0,0,0,.18);
+    }
+
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: var(--teal);
+      border: 1px solid rgba(255,255,255,.24);
+      text-decoration: none;
+    }
+
+    .action-button:hover { background: var(--teal-dark); }
+    .action-button.secondary { background: transparent; }
+    .action-button.secondary:hover { background: rgba(255,255,255,.1); }
+
+    #viewer {
+      width: 100%;
+      min-height: calc(100vh - 70px);
+      padding: 20px 10px 34px;
+    }
+
+    .page-container {
+      position: relative;
+      margin: 0 auto 20px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 18px rgba(0,0,0,.2);
+      overflow: hidden;
+    }
+
+    .pdf-page {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .annotation-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .pdf-link {
+      position: absolute;
+      display: block;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+
+    .pdf-link:hover {
+      background: rgba(0, 100, 200, 0.12);
+    }
+
+    .status {
+      width: min(720px, calc(100% - 30px));
+      margin: 55px auto;
+      padding: 20px;
+      border-left: 4px solid var(--teal);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--text);
+      box-shadow: 0 3px 15px rgba(0,0,0,.12);
+      line-height: 1.6;
+    }
+
+    .status.error { border-left-color: #b02a37; }
+
+    @media (max-width: 760px) {
+      body { padding-top: 126px; }
+      .toolbar {
+        min-height: 126px;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 10px;
+        gap: 9px;
+      }
+      .identity strong { font-size: 14px; }
+      .controls { width: 100%; justify-content: space-between; }
+      .language-switcher { flex: 1; }
+      .language-button { flex: 1; }
+      .action-button { min-width: 72px; }
+      #viewer { padding: 10px 5px 24px; }
+      .page-container { margin-bottom: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+    }
+
+    @media print {
+      body { padding: 0; background: #fff; }
+      .toolbar, .status { display: none !important; }
+      #viewer { padding: 0; }
+      .page-container {
+        width: 100% !important;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .annotation-layer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="toolbar">
+    <div class="identity">
+      <strong id="mainTitle">Abdulrahman Alhaidari</strong>
+      <span id="subtitle">Technical Curriculum Vitae - English</span>
+    </div>
+
+    <div class="controls">
+      <div class="language-switcher" aria-label="Choose CV language">
+        <button id="englishButton" class="language-button active" type="button">English</button>
+        <button id="arabicButton" class="language-button" type="button" lang="ar">العربية</button>
+      </div>
+      <button id="printButton" class="action-button secondary" type="button">Print</button>
+      <a id="downloadButton" class="action-button" href="#" download>Download</a>
+    </div>
+  </header>
+
+  <main id="viewer" aria-live="polite">
+    <div id="status" class="status">Loading the English CV...</div>
+  </main>
+
+  <script type="module">
+    import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs";
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs";
+
+    const CV_FILES = {
+      en: {
+        title: "Curriculum Vitae - English",
+        loading: "Loading the English CV...",
+        print: "Print",
+        download: "Download",
+        file: "Abdulrahman_Alhaidari_Technical_CV_EN.pdf"
+      },
+      ar: {
+        title: "السيرة الذاتية - العربية",
+        loading: "جاري تحميل السيرة الذاتية العربية...",
+        print: "طباعة",
+        download: "تنزيل",
+        file: "Abdulrahman_Alhaidari_Technical_CV_AR.pdf"
+      }
+    };
+
+    const viewer = document.getElementById("viewer");
+    const subtitle = document.getElementById("subtitle");
+    const englishButton = document.getElementById("englishButton");
+    const arabicButton = document.getElementById("arabicButton");
+    const printButton = document.getElementById("printButton");
+    const downloadButton = document.getElementById("downloadButton");
+
+    let renderToken = 0;
+    let currentLanguage = "en";
+
+    function availableWidth() {
+      return Math.min(document.documentElement.clientWidth - 20, 1050);
+    }
+
+    function setStatus(message, isError = false) {
+      viewer.innerHTML = "";
+      const box = document.createElement("div");
+      box.className = `status${isError ? " error" : ""}`;
+      box.innerHTML = message;
+      viewer.appendChild(box);
+    }
+
+    function languageFromURL() {
+      const lang = new URLSearchParams(window.location.search).get("lang");
+      return lang === "ar" ? "ar" : "en";
+    }
+
+    function updateInterface(language) {
+      const cv = CV_FILES[language];
+      currentLanguage = language;
+
+      subtitle.textContent = cv.title;
+      printButton.textContent = cv.print;
+      downloadButton.textContent = cv.download;
+      downloadButton.href = cv.file;
+      downloadButton.setAttribute("download", cv.file);
+
+      englishButton.classList.toggle("active", language === "en");
+      arabicButton.classList.toggle("active", language === "ar");
+      englishButton.setAttribute("aria-pressed", language === "en");
+      arabicButton.setAttribute("aria-pressed", language === "ar");
+
+      document.documentElement.lang = language;
+      document.title = `Abdulrahman Alhaidari | ${cv.title}`;
+    }
+
+    async function renderCV(language, updateURL = true) {
+      const cv = CV_FILES[language];
+      const token = ++renderToken;
+
+      updateInterface(language);
+
+      if (updateURL) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", language);
+        history.replaceState({}, "", url);
+      }
+
+      setStatus(cv.loading);
+
+      try {
+        const pdf = await pdfjsLib.getDocument({ url: cv.file }).promise;
+        if (token !== renderToken) return;
+
+        viewer.innerHTML = "";
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          if (token !== renderToken) return;
+
+          const page = await pdf.getPage(pageNumber);
+          const baseViewport = page.getViewport({ scale: 1 });
+          const cssScale = availableWidth() / baseViewport.width;
+          const outputScale = window.devicePixelRatio || 1;
+          const renderViewport = page.getViewport({ scale: cssScale * outputScale });
+          const cssViewport = page.getViewport({ scale: cssScale });
+
+          // Page container
+          const container = document.createElement("div");
+          container.className = "page-container";
+          container.style.width = `${Math.floor(cssViewport.width)}px`;
+          container.style.height = `${Math.floor(cssViewport.height)}px`;
+          container.setAttribute("aria-label", `${cv.title}, page ${pageNumber} of ${pdf.numPages}`);
+
+          // Canvas — rendered at full device resolution
+          const canvas = document.createElement("canvas");
+          canvas.className = "pdf-page";
+          const context = canvas.getContext("2d", { alpha: false });
+          canvas.width = Math.floor(renderViewport.width);
+          canvas.height = Math.floor(renderViewport.height);
+          container.appendChild(canvas);
+
+          viewer.appendChild(container);
+
+          // Render the canvas
+          await page.render({ canvasContext: context, viewport: renderViewport }).promise;
+
+          // Annotation layer — clickable links from the PDF
+          const annotations = await page.getAnnotations({ intent: "display" });
+          const links = annotations.filter(a => a.subtype === "Link" && (a.url || a.unsafeUrl));
+
+          if (links.length > 0) {
+            const annotDiv = document.createElement("div");
+            annotDiv.className = "annotation-layer";
+
+            for (const annot of links) {
+              const href = annot.url || annot.unsafeUrl;
+              if (!href) continue;
+
+              const rect = pdfjsLib.Util.normalizeRect(
+                cssViewport.convertToViewportRectangle(annot.rect)
+              );
+
+              const a = document.createElement("a");
+              a.href = href;
+              a.target = "_blank";
+              a.rel = "noopener noreferrer";
+              a.className = "pdf-link";
+              a.title = href.replace(/^mailto:|^tel:/, "");
+              a.style.left   = `${rect[0]}px`;
+              a.style.top    = `${rect[1]}px`;
+              a.style.width  = `${rect[2] - rect[0]}px`;
+              a.style.height = `${rect[3] - rect[1]}px`;
+              annotDiv.appendChild(a);
+            }
+
+            container.appendChild(annotDiv);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        const direction = language === "ar" ? "rtl" : "ltr";
+        const message = language === "ar"
+          ? `<div dir="${direction}"><strong>تعذر عرض السيرة الذاتية.</strong><br>تأكد من رفع الملف التالي في المجلد نفسه مع index.html:<br><code>${cv.file}</code></div>`
+          : `<strong>The CV could not be displayed.</strong><br>Confirm that this file is uploaded in the same folder as index.html:<br><code>${cv.file}</code>`;
+        setStatus(message, true);
+      }
+    }
+
+    englishButton.addEventListener("click", () => renderCV("en"));
+    arabicButton.addEventListener("click", () => renderCV("ar"));
+    printButton.addEventListener("click", () => window.print());
+
+    // Re-render on resize for crisp quality at any width
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => renderCV(currentLanguage, false), 250);
+    });
+
+    // Re-render when browser zoom changes (devicePixelRatio changes)
+    (function watchZoom() {
+      const mql = matchMedia(`(resolution: ${devicePixelRatio}dppx)`);
+      mql.addEventListener("change", () => {
+        renderCV(currentLanguage, false);
+        watchZoom();
+      }, { once: true });
+    })();
+
+    renderCV(languageFromURL(), false);
+  </script>
+</body>
+</html>
